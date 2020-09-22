@@ -35,9 +35,6 @@
 }
 
 body {
-  background-image: url("../site-files/assets/Gloomhaven_World_Map_v2.jpg");
-  background-repeat: no-repeat;
-  background-size: cover;
   background-color: grey;
   padding-top: 130px 0 0;
   margin: 0px;
