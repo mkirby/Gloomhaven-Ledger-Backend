@@ -4,7 +4,6 @@ def reload
     load 'config/environment.rb'
 end
 
-
 p "test"
 
 Pry.start
