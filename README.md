@@ -7,3 +7,6 @@
 
 - A `Campaign` has many `Character`s through it's `Party`
 - A `Character` is only in one `Campaign`
+
+# Special Thanks
+- https://github.com/any2cards/gloomhaven
