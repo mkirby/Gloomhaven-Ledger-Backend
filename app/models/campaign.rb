@@ -1,3 +1,2 @@
-class Campaign < ActiveRecord::Base
-    has_many :parties
+class Campaign < ApplicationRecord
 end

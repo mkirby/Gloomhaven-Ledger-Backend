@@ -1,3 +1,2 @@
-class Party < ActiveRecord::Base
-    belongs_to :campaign
+class Party < ApplicationRecord
 end
