@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_12_11_184943) do
+ActiveRecord::Schema.define(version: 2020_12_11_195108) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -19,6 +19,22 @@ ActiveRecord::Schema.define(version: 2020_12_11_184943) do
     t.string "name"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
+  end
+
+  create_table "characters", force: :cascade do |t|
+    t.bigint "user_id", null: false
+    t.bigint "party_id", null: false
+    t.string "name"
+    t.integer "level"
+    t.integer "experience"
+    t.integer "gold"
+    t.integer "checkmarks"
+    t.boolean "active"
+    t.boolean "retired"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["party_id"], name: "index_characters_on_party_id"
+    t.index ["user_id"], name: "index_characters_on_user_id"
   end
 
   create_table "parties", force: :cascade do |t|
@@ -49,6 +65,8 @@ ActiveRecord::Schema.define(version: 2020_12_11_184943) do
     t.datetime "updated_at", precision: 6, null: false
   end
 
+  add_foreign_key "characters", "parties"
+  add_foreign_key "characters", "users"
   add_foreign_key "parties", "campaigns"
   add_foreign_key "user_campaigns", "campaigns"
   add_foreign_key "user_campaigns", "users"
