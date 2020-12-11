@@ -4,4 +4,5 @@ class UserCampaignSerializer < ActiveModel::Serializer
   def campaign_name
     object.campaign.name
   end
+  
 end

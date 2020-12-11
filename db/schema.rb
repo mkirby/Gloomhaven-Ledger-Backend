@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_12_11_161027) do
+ActiveRecord::Schema.define(version: 2020_12_11_184943) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -21,9 +21,19 @@ ActiveRecord::Schema.define(version: 2020_12_11_161027) do
     t.datetime "updated_at", precision: 6, null: false
   end
 
+  create_table "parties", force: :cascade do |t|
+    t.string "name"
+    t.string "notes"
+    t.integer "reputation"
+    t.bigint "campaign_id", null: false
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["campaign_id"], name: "index_parties_on_campaign_id"
+  end
+
   create_table "user_campaigns", force: :cascade do |t|
-    t.bigint "user_id"
-    t.bigint "campaign_id"
+    t.bigint "user_id", null: false
+    t.bigint "campaign_id", null: false
     t.boolean "owner"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
@@ -39,4 +49,7 @@ ActiveRecord::Schema.define(version: 2020_12_11_161027) do
     t.datetime "updated_at", precision: 6, null: false
   end
 
+  add_foreign_key "parties", "campaigns"
+  add_foreign_key "user_campaigns", "campaigns"
+  add_foreign_key "user_campaigns", "users"
 end
