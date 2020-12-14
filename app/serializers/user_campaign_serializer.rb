@@ -1,8 +1,8 @@
 class UserCampaignSerializer < ActiveModel::Serializer
-  attributes :id, :user_id, :campaign_id, :campaign_name, :owner
+  attributes :id, :user_id, :campaign, :owner
 
-  def campaign_name
-    object.campaign.name
+  def campaign
+    CampaignSerializer.new(object.campaign)
   end
-  
+
 end
