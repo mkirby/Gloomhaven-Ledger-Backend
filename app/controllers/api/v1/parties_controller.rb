@@ -1,5 +1,13 @@
 class Api::V1::PartiesController < ApplicationController
-  before_action :find_party, only: [:update]
+  before_action :find_party, only: [:show, :update]
+
+  def show
+    if @party.valid?
+      render json: { party: PartySerializer.new(@party)}, status: :ok
+    else
+      render json: { error: 'party not found'}, status: :not_found
+    end
+  end
 
   def create
     party = Party.create(party_params)

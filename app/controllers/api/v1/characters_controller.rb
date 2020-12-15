@@ -1,6 +1,14 @@
 class Api::V1::CharactersController < ApplicationController
-  before_action :find_character, only: [:update]
+  before_action :find_character, only: [:show, :update]
   
+  def show
+    if @character.valid?
+      render json: { character: CharacterSerializer.new(@character)}, status: :ok
+    else
+      render json: { error: 'character not found'}, status: :not_found
+    end
+  end
+
   def create
     character = Character.create(character_params)
     if character.valid?
