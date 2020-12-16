@@ -1,5 +1,5 @@
 class Api::V1::CharactersController < ApplicationController
-  before_action :find_character, only: [:show, :update]
+  before_action :find_character, only: [:show, :update, :destroy]
   
   def show
     if @character.valid?
@@ -24,7 +24,6 @@ class Api::V1::CharactersController < ApplicationController
   end
 
   def destroy
-    # TODO gonna need to decide how much to delete when a character is deleted
     @character.delete
     render json: {}, status: :accepted
   end
