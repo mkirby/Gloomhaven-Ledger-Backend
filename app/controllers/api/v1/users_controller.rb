@@ -11,7 +11,8 @@ class Api::V1::UsersController < ApplicationController
   end
 
   def profile
-    render json: { user: UserSerializer.new(current_user) }, status: :accepted
+    @token = encode_token({ user_id: current_user.id })
+    render json: { user: UserSerializer.new(current_user), jwt: @token }, status: :accepted
   end
 
   def create
