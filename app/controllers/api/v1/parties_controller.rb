@@ -1,5 +1,5 @@
 class Api::V1::PartiesController < ApplicationController
-  before_action :find_party, only: [:show, :update]
+  before_action :find_party, only: [:show, :update, :destroy]
 
   def show
     if @party.valid?
@@ -24,9 +24,9 @@ class Api::V1::PartiesController < ApplicationController
   end
 
   def destroy
-    # TODO gonna need to decide how much to delete when a party is deleted
+    @party.characters.each { |character| character.delete}
     @party.delete
-    render json: {}, status: :accepted
+    render json: { user: UserSerializer.new(current_user) }, status: :accepted
   end
 
   private

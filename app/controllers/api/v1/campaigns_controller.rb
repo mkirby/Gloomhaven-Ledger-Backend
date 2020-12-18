@@ -1,5 +1,5 @@
 class Api::V1::CampaignsController < ApplicationController
-  before_action :find_campaign, only: [:show,:update, :destroy]
+  before_action :find_campaign, only: [:show, :update, :destroy]
 
   def index
     # FIXME dont like how this is returning without hitting the serializer but haven't quite figured it out yet
@@ -36,9 +36,13 @@ class Api::V1::CampaignsController < ApplicationController
   end
 
   def destroy
-    # TODO gonna need to decide how much to delete when a campaign is deleted
+    @campaign.user_campaigns.each { |uc| uc.delete }
+    @campaign.parties.each do |party|
+      party.characters.each { |character| character.delete}
+      party.delete
+    end
     @campaign.delete
-    render json: {}, status: :accepted
+    render json: { user: UserSerializer.new(current_user) }, status: :accepted
   end
 
   private

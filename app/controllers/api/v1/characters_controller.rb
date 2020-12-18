@@ -25,7 +25,7 @@ class Api::V1::CharactersController < ApplicationController
 
   def destroy
     @character.delete
-    render json: {}, status: :accepted
+    render json: { user: UserSerializer.new(current_user) }, status: :accepted
   end
 
   private
