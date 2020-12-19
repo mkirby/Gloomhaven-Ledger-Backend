@@ -10,7 +10,7 @@ class Api::V1::CampaignsController < ApplicationController
 
   def show
     if @campaign.valid?
-      render json: { campaign: CampaignSerializer.new(@campaign)}, status: :ok
+      render json: { campaign: CampaignSerializer.new(@campaign), user: UserSerializer.new(current_user)}, status: :ok
     else
       render json: { error: 'campaign not found'}, status: :not_found
     end
@@ -21,7 +21,7 @@ class Api::V1::CampaignsController < ApplicationController
     if campaign.valid?
       user_campaign = UserCampaign.create(user_id: current_user.id, campaign_id: campaign.id, owner: true)
       if user_campaign.valid?
-        render json: { campaign: CampaignSerializer.new(campaign)}, status: :created
+        render json: { campaign: CampaignSerializer.new(campaign), user: UserSerializer.new(current_user) }, status: :created
       else
         render json: { error: 'failed to link user to a campaign' }, status: :not_acceptable
       end
@@ -32,7 +32,7 @@ class Api::V1::CampaignsController < ApplicationController
 
   def update
     @campaign.update(campaign_params)
-    render json: { campaign: CampaignSerializer.new(@campaign) }, status: :ok
+    render json: { campaign: CampaignSerializer.new(@campaign), user: UserSerializer.new(current_user) }, status: :ok
   end
 
   def destroy

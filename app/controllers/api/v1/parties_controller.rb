@@ -3,7 +3,7 @@ class Api::V1::PartiesController < ApplicationController
 
   def show
     if @party.valid?
-      render json: { party: PartySerializer.new(@party)}, status: :ok
+      render json: { party: PartySerializer.new(@party), user: UserSerializer.new(current_user)}, status: :ok
     else
       render json: { error: 'party not found'}, status: :not_found
     end
@@ -12,7 +12,7 @@ class Api::V1::PartiesController < ApplicationController
   def create
     party = Party.create(party_params)
     if party.valid?
-      render json: { party: PartySerializer.new(party) }, status: :created
+      render json: { party: PartySerializer.new(party), user: UserSerializer.new(current_user) }, status: :created
     else
       render json: { error: 'failed to create party' }, status: :not_acceptable
     end
@@ -20,7 +20,7 @@ class Api::V1::PartiesController < ApplicationController
 
   def update
     @party.update(party_params)
-    render json: { party: PartySerializer.new(@party) }, status: :ok
+    render json: { party: PartySerializer.new(@party), user: UserSerializer.new(current_user) }, status: :ok
   end
 
   def destroy

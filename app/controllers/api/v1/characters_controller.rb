@@ -3,7 +3,7 @@ class Api::V1::CharactersController < ApplicationController
   
   def show
     if @character.valid?
-      render json: { character: CharacterSerializer.new(@character)}, status: :ok
+      render json: { character: CharacterSerializer.new(@character), user: UserSerializer.new(current_user) }, status: :ok
     else
       render json: { error: 'character not found'}, status: :not_found
     end
@@ -12,7 +12,7 @@ class Api::V1::CharactersController < ApplicationController
   def create
     character = Character.create(character_params)
     if character.valid?
-      render json: { character: CharacterSerializer.new(character) }, status: :created
+      render json: { character: CharacterSerializer.new(character), user: UserSerializer.new(current_user) }, status: :created
     else
       render json: { error: 'failed to create character' }, status: :not_acceptable
     end
@@ -20,7 +20,7 @@ class Api::V1::CharactersController < ApplicationController
 
   def update
     @character.update(character_params)
-    render json: { character: CharacterSerializer.new(@character) }, status: :ok
+    render json: { character: CharacterSerializer.new(@character), user: UserSerializer.new(current_user) }, status: :ok
   end
 
   def destroy
