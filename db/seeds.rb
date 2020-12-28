@@ -1,3 +1,5 @@
+# Currently need to manually create 1 User, 2 Campaigns, and 2 Parties before running seed file
+
 character_classes = [
   {
     'fullname': 'Inox Brute',
@@ -92,10 +94,12 @@ character_classes = [
 ]
 
 def create_character_class(character_classes)
+  puts 'creating/updating character classes'
   character_classes.each { |char_class|
     if CharacterClass.find_by(name: char_class[:name])
-      puts 'updated'
-      CharacterClass.update(
+      character_class = CharacterClass.find_by(name: char_class[:name])
+      puts "updated #{character_class.fullname}"
+      character_class.update(
         fullname: char_class[:fullname],
         name: char_class[:name],
         name_hidden: char_class[:name_hidden],
@@ -109,10 +113,10 @@ def create_character_class(character_classes)
         img_icon: char_class[:img_icon],
         health: char_class[:health],
         description: char_class[:description]
-        )
-      else
-        puts 'created'
-        CharacterClass.create(
+      )
+    else
+      puts "created #{char_class[:fullname]}"
+      CharacterClass.create(
         fullname: char_class[:fullname],
         name: char_class[:name],
         name_hidden: char_class[:name_hidden],
@@ -129,6 +133,46 @@ def create_character_class(character_classes)
       )
     end
   }
+  puts "created/updated character classes"
+end
+
+def create_characters()
+  puts 'creating/updating characters'
+  character_names = [ 'Aang','Katara','Sokka','Toph','Zuko','Korra','Asami','Bolin','Mako' ]
+  
+  9.times { |index|
+    if Character.find_by(name: character_names[index])
+      character = Character.find_by(name: character_names[index])
+      puts "updated #{character.name}"
+      character.update(
+        user_id: 1,
+        character_class_id: rand(1..6),
+        party_id: index < 5 ? 1 : 2,
+        name: character_names[index],
+        level: 1,
+        experience: 0,
+        gold: 0,
+        checkmarks: 0,
+        active: true,
+        retired: false
+      )
+    else
+      puts "created #{character_names[index]}"
+      Character.create(
+        user_id: 1,
+        character_class_id: rand(1..6),
+        party_id: index < 5 ? 1 : 2,
+        name: character_names[index],
+        level: 1,
+        experience: 0,
+        gold: 0,
+        checkmarks: 0,
+        active: true,
+        retired: false
+      )
+    end
+  }
 end
 
 create_character_class(character_classes)
+create_characters()
