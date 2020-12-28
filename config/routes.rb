@@ -6,6 +6,7 @@ Rails.application.routes.draw do
       resources :campaigns, only: [:index, :show, :create, :update, :destroy]
       resources :parties, only: [:show, :create, :update, :destroy]
       resources :characters, only: [:show, :create, :update, :destroy]
+      resources :character_classes, only: [:index]
       post '/login', to: 'auth#create'
       get '/profile', to: 'users#profile'
       get '/find_user_by_username', to: 'users#find_user_by_username'

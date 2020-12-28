@@ -5,7 +5,7 @@ class Api::V1::CampaignsController < ApplicationController
     # FIXME dont like how this is returning without hitting the serializer but haven't quite figured it out yet
     campaigns = []
     current_user.campaigns.each{ |i| campaigns.push(i)}
-    render json: { campaigns: campaigns}, status: :created
+    render json: { campaigns: campaigns}, status: :ok
   end
 
   def show

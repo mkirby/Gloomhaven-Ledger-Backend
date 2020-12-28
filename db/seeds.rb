@@ -15,7 +15,7 @@ character_classes = [
     'description': "The Inox are a primative and barbaric race, preferring to live in small nomadic tribes scattered across the wilderness. There, they subsist through hunting and gathering, scraping together a meager existance while fighting off the more dangerous creatures of the wilds. What they lack in intelligence and sophistication, they make up for with their superior strength and size, always eager to prove themselves in a challenge. And one should certianly take care in challenging an Inox. Their society does not pay much heed to ethics or morality. For the Inox, it is all about survival - kill or be killed. \n\n There is a class of Inox, however, who have abandoned their nomadic ways to embrace life in human cities, employing their great size and strength to earn a more comfortable living. Disparagingly called 'Brutes' by those who employ them, the Inox perform many taks of menial labor, from construction to loading and unloading ships. Less savory types have also been known to hire Brutes as extra muscle. Ideology matters little to the Brute when given a chance to show his strength and get paid to do it."
   },
   {
-    'Fullname': 'Quatryl Tinkerer',
+    'fullname': 'Quatryl Tinkerer',
     'name': 'Tinkerer',
     'name_hidden': 'Tinkerer',
     'abbreviation': 'TI',
