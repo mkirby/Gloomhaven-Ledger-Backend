@@ -1,5 +1,5 @@
 class CampaignSerializer < ActiveModel::Serializer
-  attributes :id, :name, :parties, :characters, :players, :owner, :created_at
+  attributes :id, :name, :parties, :characters, :players, :owner, :created_at, :character_classes
   has_many :parties
   has_many :characters, through: :parties
 
@@ -18,4 +18,11 @@ class CampaignSerializer < ActiveModel::Serializer
       avatar: owner.avatar
     }
   end
+
+  def character_classes
+    # eventually do lots of validation to only give unlocked classes
+    # this needs a join model with CharacterClass to track unlocked classes
+    CharacterClass.all
+  end
+
 end
