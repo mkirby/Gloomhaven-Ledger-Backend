@@ -3,7 +3,7 @@ class Api::V1::UsersController < ApplicationController
 
   def find_user_by_username
     user = User.find_by(username: params[:username])
-    if user.valid?
+    if user
       render json: { user: UserSerializer.new(user) }, status: :accepted
     else
       render json: { error: 'failed to find user' }, status: :not_found
@@ -28,6 +28,6 @@ class Api::V1::UsersController < ApplicationController
   private
 
   def user_params
-    params.require(:user).permit(:username, :password, :bio, :avatar)
+    params.require(:user).permit(:username, :password, :avatar)
   end
 end
